@@ -1,6 +1,6 @@
 name: FindCreeper
 main: com.github.superjoy0502.findcreeper.FindCreeper
-version: 0.1.4
+version: 0.1.5
 api-version: 1.16
 author: https://github.com/superjoy0502
 commands:
