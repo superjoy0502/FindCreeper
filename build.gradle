@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'com.github.superjoy0502'
-version '1.0-SNAPSHOT'
+version '0.1.4-alpha'
 
 repositories {
     mavenCentral()
