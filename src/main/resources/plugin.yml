@@ -1,0 +1,10 @@
+name: FindCreeper
+main: com.github.superjoy0502.findcreeper.FindCreeper
+version: 1.0
+commands:
+  findcreeper:
+    description: "Commands for setting FindingCreeper."
+    usage: "Usage: '/findcreeper [arg]'"
+  fc:
+    description: "Commands for setting FindingCreeper."
+    usage: "Usage: '/fc [arg]'"
