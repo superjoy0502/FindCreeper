@@ -10,7 +10,7 @@ public class Level {
     public String name;
     public List<Entity> list = new ArrayList<Entity>();
 
-    public Level(String name){
+    public Level(String name) {
         this.name = name;
     }
 

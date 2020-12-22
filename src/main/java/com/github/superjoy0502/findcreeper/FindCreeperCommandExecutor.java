@@ -10,16 +10,15 @@ import java.util.List;
 
 public class FindCreeperCommandExecutor implements CommandExecutor {
     private final FindCreeper fc;
+    public List<Level> levelList = new ArrayList<Level>();
 
-    public FindCreeperCommandExecutor(FindCreeper fc){
+    public FindCreeperCommandExecutor(FindCreeper fc) {
         this.fc = fc;
     }
 
-    public List<Level> levelList = new ArrayList<Level>();
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(command.getName().equalsIgnoreCase("findcreeper") || command.getName().equalsIgnoreCase("fc")){
+        if (command.getName().equalsIgnoreCase("findcreeper") || command.getName().equalsIgnoreCase("fc")) {
 
             if (!(sender instanceof Player)) {
                 sender.sendMessage("This is a player only command!");
@@ -27,24 +26,34 @@ public class FindCreeperCommandExecutor implements CommandExecutor {
             }
 
             Player player = (Player) sender;
-            if (args.length >= 3){
+            if (args.length >= 3) {
                 return false;
-            }
-            else {
+            } else {
                 switch (args[0]) {
                     case "create":
                         levelList.add(new Level(args[1].toString()));
-                        break;
+                        sender.sendMessage("Level \"" + args[1].toString() + "\" has been added!");
+                        return true;
                     case "remove":
-                        for (int i =0; i < levelList.size(); i++){
-                            if (levelList.get(i).name == args[1].toString()){
-                                levelList.remove(i);
-                            }
+                        try {
+                            levelList.remove(Integer.parseInt(args[1]) - 1);
+                        } catch (NumberFormatException e) {
+                            sender.sendMessage("Usage: /findcreeper remove [index]");
+                        } catch (IndexOutOfBoundsException e) {
+                            sender.sendMessage("Usage: /findcreeper remove [index starting from 1]");
                         }
-                        break;
+                        return true;
                     case "list":
-                        sender.sendMessage(levelList.toString());
-                        break;
+                        List<String> levelNames = new ArrayList<String>();
+                        for (int i = 0; i < levelList.size(); i++) {
+                            if (i == 0){
+                                levelNames.add("1: " + levelList.get(i).name);
+                                continue;
+                            }
+                            levelNames.add("\n" + (i + 1) + ": " + levelList.get(i).name);
+                        }
+                        sender.sendMessage(levelNames.toString());
+                        return true;
                 }
             }
 
