@@ -7,7 +7,7 @@
 버젼
 ------
 * [PaperMC](https://github.com/PaperMC/Paper) 1.16.4
-* JDK 13
+* [JDK 13](https://www.oracle.com/java/technologies/javase-jdk13-downloads.html)
 
 커맨드
 ------
