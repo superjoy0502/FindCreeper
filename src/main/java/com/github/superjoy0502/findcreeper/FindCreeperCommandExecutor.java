@@ -3,6 +3,7 @@ package com.github.superjoy0502.findcreeper;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -11,9 +12,14 @@ import java.util.List;
 public class FindCreeperCommandExecutor implements CommandExecutor {
     private final FindCreeper fc;
     public List<Level> levelList = new ArrayList<Level>();
+    public FileConfiguration config;
 
     public FindCreeperCommandExecutor(FindCreeper fc) {
         this.fc = fc;
+    }
+
+    public void setConfigFile(FileConfiguration config){
+        this.config = config;
     }
 
     @Override
