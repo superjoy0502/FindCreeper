@@ -1,9 +1,12 @@
 package com.github.superjoy0502.findcreeper;
 
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -13,6 +16,7 @@ public class FindCreeperCommandExecutor implements CommandExecutor {
     private final FindCreeper fc;
     public List<Level> levelList = new ArrayList<Level>();
     public FileConfiguration config;
+    public boolean isEditing = false;
 
     public FindCreeperCommandExecutor(FindCreeper fc) {
         this.fc = fc;
@@ -60,10 +64,24 @@ public class FindCreeperCommandExecutor implements CommandExecutor {
                         }
                         sender.sendMessage(levelNames.toString());
                         return true;
+                    case "summon":
+                        isEditing = true;
+                        Entity creeper = player.getWorld().spawnEntity(player.getLocation(), EntityType.CREEPER);
+                        creeper.setGravity(false);
+                        return true;
+                    case "confirm":
+                        isEditing = false;
+                        return true;
                 }
             }
 
         }
         return false;
+    }
+
+    public void editCreeper(Entity creeper){
+        while (isEditing){
+            creeper.teleport(new Location(creeper.getWorld(), 0, 0, 0, 0, 0));
+        }
     }
 }
