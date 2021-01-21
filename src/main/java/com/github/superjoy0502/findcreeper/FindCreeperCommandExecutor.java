@@ -19,7 +19,6 @@ public class FindCreeperCommandExecutor implements CommandExecutor {
     public List<Level> levelList = new ArrayList<Level>();
     public FileConfiguration config;
     public boolean isEditing = false;
-    private int creeperN = 1;
 
     public FindCreeperCommandExecutor(FindCreeper fc) {
         this.fc = fc;
@@ -68,10 +67,26 @@ public class FindCreeperCommandExecutor implements CommandExecutor {
                         sender.sendMessage(levelNames.toString());
                         return true;
                     case "summon":
+                        try
+                        {
+                            Integer.parseInt(args[1]);
+                            try {
+                                levelList.get(Integer.parseInt(args[1]));
+                            }
+                            catch (IndexOutOfBoundsException e){
+                                return false;
+                            }
+                        }
+                        catch (NumberFormatException e)
+                        {
+                            return false;
+                        }
+                        Level level = levelList.get(Integer.parseInt(args[1]));
                         isEditing = true;
                         Entity creeper = player.getWorld().spawnEntity(player.getLocation(), EntityType.CREEPER);
                         creeper.setGravity(false);
-                        editCreeper(player, creeper);
+                        level.list.add(creeper);
+                        editCreeper(player, level, creeper);
                         return true;
                     case "confirm":
                         isEditing = false;
@@ -83,10 +98,10 @@ public class FindCreeperCommandExecutor implements CommandExecutor {
         return false;
     }
 
-    public void editCreeper(Player player, Entity creeper){
+    public void editCreeper(Player player, Level level, Entity creeper){
         while (isEditing){
             creeper.teleport(new Location(player.getWorld(), player.getLocation().getX(), 0, 0, 0, 0));
-            player.getServer().dispatchCommand(Bukkit.getConsoleSender(), "execute as " + player.getName() + " at @s run tp @e[tag=findcreeper" + );
+            player.getServer().dispatchCommand(Bukkit.getConsoleSender(), "execute as " + player.getName() + " at @s run tp @e[tag=" + level.name + (level.list.size()-1) + ",limit=1] ^ ^0.5 ^5");
         }
     }
 }
